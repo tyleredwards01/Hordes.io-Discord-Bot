@@ -9,7 +9,7 @@ def on_ready():
   print('Connected!')
   print('Username: ' + client.user.name)
   print('User ID: ' + client.user.id)
-  
+
 #Adminlist (Use the USER IDS)
 adlist = []
 #List of users who cannot use the bot (Use the USER IDS)
@@ -32,14 +32,14 @@ def on_message(message):
       t2 = time.clock()
       y = t2-t1
       yield from message.edit_message(msg, 'PONG `' +  y[2: 4] + 'ms`')
-      
-      
+
+
   if message.content.upper() == '$RESTART':
     if UID in adlist:
       os.system('start restart.py')
       sys.exit(0)
-      
-      
+
+
   if message.content.upper() == '$ISADMIN':
     if UID in adlist:
       yield from client.send_message(c, 'Yes, you are a bot admin.')
@@ -49,7 +49,7 @@ def on_message(message):
       else:
         yield from client.send_message(c, 'No, you do not have access to all bot commands. If you think this is a mistake please contact <@190313064367652864>')
 
-  if message.content.startswith('$BLIST')
+  if message.content.startswith('$BLIST'):
     mes = message.content
     if UID in badlist:
       pass
@@ -65,5 +65,5 @@ def on_message(message):
             badlist.remove(mes[2])
           else:
             yield from client.send_message(c, 'Invalid Command')
-#Replace TOKEN with the actual token.    
-client.run(-cjI_eTF2bQVTODv0sOPdFRQT0BK_5Lh)
+#Replace TOKEN with the actual token.
+client.run("-cjI_eTF2bQVTODv0sOPdFRQT0BK_5Lh")
