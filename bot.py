@@ -66,4 +66,4 @@ def on_message(message):
           else:
             yield from client.send_message(c, 'Invalid Command')
 #Replace TOKEN with the actual token.    
-client.run(TOKEN)
+client.run(-cjI_eTF2bQVTODv0sOPdFRQT0BK_5Lh)
