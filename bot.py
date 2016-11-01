@@ -55,7 +55,7 @@ def on_message(message):
       pass
     else:
       if UID in adlist:
-        mes.split(' ')
+        mes = mes.split(' ')
         if len(mes) < 1:
           yield from client.send_message(authr, str(badlist))
         else:
