@@ -29,6 +29,10 @@ def on_message(message):
     t2 = time.clock()
     y = t2-t1
     yield from message.edit_message(msg, 'PONG `' +  y[2: 4] + 'ms`')
+  if message.content.upper() == '$RESTART':
+    if UID in adlist:
+      os.system('start restart.py')
+      sys.exit(0)
     
 #Replace TOKEN with the actual token.    
 client.run(TOKEN)
