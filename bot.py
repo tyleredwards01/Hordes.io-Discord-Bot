@@ -33,6 +33,12 @@ def on_message(message):
     if UID in adlist:
       os.system('start restart.py')
       sys.exit(0)
+  if message.content.upper() == '$ISADMIN':
+    if UID in adlist:
+      yield from client.send_message(c, 'Yes, you are a bot admin.')
+    else:
+      yield from client.send_message(c, 'No, you do not have access to all bot commands. If you think this is a mistake please contact <@190313064367652864>')
+      
     
 #Replace TOKEN with the actual token.    
 client.run(TOKEN)
