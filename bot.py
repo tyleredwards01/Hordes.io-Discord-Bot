@@ -11,7 +11,7 @@ def on_ready():
   print('User ID: ' + client.user.id)
 
 #Adminlist (Use the USER IDS)
-adlist = ['190313064367652864', '227376221351182337']
+adlist = ['190313064367652864', '227376221351182337', '104680633518821376']
 #List of users who cannot use the bot (Use the USER IDS)
 badlist = []
 
@@ -30,15 +30,14 @@ def on_message(message):
       t1 = time.clock()
       msg = yield from client.send_message(c, 'PONG')
       t2 = time.clock()
-      y = str(t2-t1)
-      yield from client.edit_message(msg, 'PONG `' +  y[2: 5] + 'ms`')
+      y = t2-t1
+      yield from client.edit_message(msg, 'PONG `' +  y[2: 4] + 'ms`')
 
 
   if message.content.upper() == '$RESTART':
     if UID in adlist:
-      yield from client.send_message(c, 'Restarting...')
-      os.system('start /min restart.py')
-      sys.exit()
+      os.system('start restart.py')
+      sys.exit(0)
 
 
   if message.content.upper() == '$ISADMIN':
@@ -50,19 +49,16 @@ def on_message(message):
       else:
         yield from client.send_message(c, 'No, you do not have access to all bot commands. If you think this is a mistake please contact <@190313064367652864>')
 
-  if message.content.upper().startswith('$BLIST'):
+  if message.content.startswith('$BLIST'):
     if UID in adlist:
       mes = mes.split(' ')
-      print(len(mes))
-      if len(mes) == 1:
+      if len(mes) > 0:
         yield from client.send_message(auth, badlist)
       else:
         if mes[1].upper() == 'ADD':
           badlist.append(mes[2])
-          yield from client.send_message(c, '<@' + mes[2] + '> added to the blacklist.')
-        if mes[1].upper() == 'REM':
+        elif mes[1].upper() == 'REM':
           badlist.remove(mes[2])
-          yield from client.send_message(c, '<@' + mes[2] + '> removed from the blacklist.')
 
   if message.content.upper() == '$INFO':
     if UID in badlist:
@@ -74,9 +70,6 @@ def on_message(message):
     if UID in badlist:
       pass
     else:
-      yield from client.send_message(c, '`HORDESBOT HELP: \nEveryone:\n$INFO - Gives info about HordesBot. \n$ISADMIN - Tells you if you have admin privelages.\n$PING - Returns with "PONG". Used to ensure HordesBot is running.')
-  if message.content.upper() == '$STOP':
-    if UID in adlist:
-      sys.exit()
+      yield from client.send_message(c, '`HORDESBOT HELP: \nEveryone:\n$INFO - Gives info about HordesBot. \n$ISADMIN - Tells you if you have admin privelages.\n$PING - Returns with "PONG". Used to ensure HordesBot is running.\nADMIN PRIVELAGES:\n$RESTART - Restarts the bot.\n$STOP - Stops HordesBot`')
 #Replace TOKEN with the actual token.
 client.run("MjQzMTIwMTM3MDEwNDEzNTY4.CvqzgQ.F_LYyrZj3h10eW20poqWdsxL1Vc")
