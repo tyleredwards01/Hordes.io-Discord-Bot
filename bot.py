@@ -28,10 +28,10 @@ def on_message(message):
         pass
     else:
       t1 = time.clock()
-      msg = yield from client.send_message(c, 'PONG')
+      msg = yield from client.send_message(c, '`PONG`')
       t2 = time.clock()
       y = t2-t1
-      yield from client.edit_message(msg, 'PONG `' +  y[2: 4] + 'ms`')
+      yield from client.edit_message(msg, '`PONG`' +  y[2: 4] + 'ms`')
 
 
   if message.content.upper() == '$RESTART':
@@ -42,12 +42,12 @@ def on_message(message):
 
   if message.content.upper() == '$ISADMIN':
     if UID in adlist:
-      yield from client.send_message(c, 'Yes, you are a bot admin.')
+      yield from client.send_message(c, '`Yes, you are a bot admin.`')
     else:
       if UID in badlist:
         pass
       else:
-        yield from client.send_message(c, 'No, you do not have access to all bot commands. If you think this is a mistake please contact <@190313064367652864>')
+        yield from client.send_message(c, '`No, you do not have access to all bot commands. If you think this is a mistake please contact <@190313064367652864>`')
 
   if message.content.startswith('$BLIST'):
     if UID in adlist:
@@ -64,25 +64,36 @@ def on_message(message):
     if UID in badlist:
       pass
     else:
-      yield from client.send_message(c, 'HordesBot was created by BlazingFire007 and LegusX.')
+      yield from client.send_message(c, '`HordesBot was created by BlazingFire007 and LegusX.`')
 
   if message.content.upper() == '$HELP':
     if UID in badlist:
       pass
     else:
       yield from client.send_message(c, '`HORDESBOT HELP: \nEveryone:\n$INFO - Gives info about HordesBot. \n$ISADMIN - Tells you if you have admin privelages.\n$PING - Returns with "PONG". Used to ensure HordesBot is running.\nADMIN PRIVELAGES:\n$RESTART - Restarts the bot.\n$STOP - Stops HordesBot`')
-  
+
   if message.content.upper() == '$LEADERBOARD':
     if UID in badlist:
       pass
     else:
-      yield from client.send_message(c, 'Sorry, but this command has not yet been fully implemented.')
-      
+      yield from client.send_message(c, '`Sorry, but this command has not yet been fully implemented.`')
+
   if message.content.upper() == '$VERSION':
     if UID in badlist:
       pass
     else:
-      yield from client.send_message(c, 'HordesBot version 0.1')
-      
+      yield from client.send_message(c, '`HordesBot version 0.1`')
+
+  if message.content.startswith('$ANNOY_'):
+    if UID in badlist:
+      pass
+    else:
+      annoying = False
+      annoyed = 0
+      while annoying == False:
+        yield from client.send_message(auth, message.content.strip('$ANNOY_')+'!!')
+        annoyed = annoyed+1
+        if annoyed > 10:
+          annoying = True
 #Replace TOKEN with the actual token.
 client.run("MjQzMTIwMTM3MDEwNDEzNTY4.CvqzgQ.F_LYyrZj3h10eW20poqWdsxL1Vc")
