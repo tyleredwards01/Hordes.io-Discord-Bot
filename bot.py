@@ -11,7 +11,7 @@ def on_ready():
   print('User ID: ' + client.user.id)
 
 #Adminlist (Use the USER IDS)
-adlist = []
+adlist = ['190313064367652864', '227376221351182337']
 #List of users who cannot use the bot (Use the USER IDS)
 badlist = []
 
