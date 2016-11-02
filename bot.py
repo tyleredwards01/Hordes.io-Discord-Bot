@@ -41,13 +41,12 @@ def on_message(message):
 
 
   if message.content.upper() == '$ISADMIN':
-    if UID in adlist:
-      yield from client.send_message(c, 'Yes, you are a bot admin.')
+    if UID in badlist:
+      pass
+    elif UID in adlist:
+      yield from client.send_message(c, 'Yes, you have full permissions.')
     else:
-      if UID in badlist:
-        pass
-      else:
-        yield from client.send_message(c, 'No, you do not have access to all bot commands. If you think this is a mistake please contact <@190313064367652864>')
+      yield from client.send_message(c, 'No, you do not have access to all bot commands. If you think this is a mistake please contact <@190313064367652864>')
 
   if message.content.startswith('$BLIST'):
     mes = message.content
