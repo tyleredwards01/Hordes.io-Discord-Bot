@@ -24,14 +24,14 @@ def on_message(message):
   c = message.channel
   #Ping command, I plan on replacing this using discord timestamps eventually.
   if message.content.upper() == '$PING':
-    if UID in badlistt:
+    if UID in badlist:
         pass
     else:
       t1 = time.clock()
-      msg = yield from message.send_message(c, 'PONG')
+      msg = yield from client.send_message(c, 'PONG')
       t2 = time.clock()
       y = t2-t1
-      yield from message.edit_message(msg, 'PONG `' +  y[2: 4] + 'ms`')
+      yield from client.edit_message(msg, 'PONG `' +  y[2: 4] + 'ms`')
 
 
   if message.content.upper() == '$RESTART':
@@ -66,4 +66,4 @@ def on_message(message):
           else:
             yield from client.send_message(c, 'Invalid Command')
 #Replace TOKEN with the actual token.
-client.run("-cjI_eTF2bQVTODv0sOPdFRQT0BK_5Lh")
+client.run("MjQzMTIwMTM3MDEwNDEzNTY4.CvqzgQ.F_LYyrZj3h10eW20poqWdsxL1Vc")
