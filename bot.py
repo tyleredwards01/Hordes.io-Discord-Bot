@@ -71,5 +71,18 @@ def on_message(message):
       pass
     else:
       yield from client.send_message(c, '`HORDESBOT HELP: \nEveryone:\n$INFO - Gives info about HordesBot. \n$ISADMIN - Tells you if you have admin privelages.\n$PING - Returns with "PONG". Used to ensure HordesBot is running.\nADMIN PRIVELAGES:\n$RESTART - Restarts the bot.\n$STOP - Stops HordesBot`')
+  
+  if message.content.upper() == '$LEADERBOARD':
+    if UID in badlist:
+      pass
+    else:
+      yield from client.send_message(c, 'Sorry, but this command has not yet been fully implemented.')
+      
+  if message.content.upper() == '$VERSION':
+    if UID in badlist:
+      pass
+    else:
+      yield from client.send_message(c, 'HordesBot version 0.1')
+      
 #Replace TOKEN with the actual token.
 client.run("MjQzMTIwMTM3MDEwNDEzNTY4.CvqzgQ.F_LYyrZj3h10eW20poqWdsxL1Vc")
