@@ -49,20 +49,14 @@ def on_message(message):
       yield from client.send_message(c, 'No, you do not have access to all bot commands. If you think this is a mistake please contact <@190313064367652864>')
 
   if message.content.startswith('$BLIST'):
-    mes = message.content
-    if UID in badlist:
-      pass
-    else:
-      if UID in adlist:
-        mes = mes.split(' ')
-        if len(mes) < 1:
-          yield from client.send_message(authr, str(badlist))
-        else:
-          if message.content.upper().startswith('$BLIST ADD'):
-            badlist.append(mes[2])
-          if message.content.upper().startswith('$BLIST REMOVE'):
-            badlist.remove(mes[2])
-          else:
-            yield from client.send_message(c, 'Invalid Command')
+    if UID in adlist:
+      mes = mes.split(' ')
+      if len(mes) > 0:
+        yield from client.send_message(authr, badlist)
+      else:
+        if mes[1].upper() == 'ADD':
+          badlist.append(mes[2])
+        elif mes[1].upper() == 'REM':
+          badlist.remove(mes[2])
 #Replace TOKEN with the actual token.
 client.run("MjQzMTIwMTM3MDEwNDEzNTY4.CvqzgQ.F_LYyrZj3h10eW20poqWdsxL1Vc")
