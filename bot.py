@@ -85,4 +85,4 @@ def on_message(message):
       yield from client.send_message(c, 'HordesBot version 0.1')
       
 #Replace TOKEN with the actual token.
-client.run("MjQzMTIwMTM3MDEwNDEzNTY4.CvqzgQ.F_LYyrZj3h10eW20poqWdsxL1Vc")
+client.run(TOKEN)
