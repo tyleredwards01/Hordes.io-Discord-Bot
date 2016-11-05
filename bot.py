@@ -11,9 +11,11 @@ def on_ready():
   print('User ID: ' + client.user.id)
 
 #Adminlist (Use the USER IDS)
-adlist = ['190313064367652864', '227376221351182337', '104680633518821376']
+adlist = ['190313064367652864', '227376221351182337', '104680633518821376', '117993898537779207']
 #List of users who cannot use the bot (Use the USER IDS)
 badlist = []
+txt = open('badlist.txt', 'r')
+badlist = txt.read().split(', ')
 
 @client.event
 @asyncio.coroutine
@@ -30,35 +32,53 @@ def on_message(message):
       t1 = time.clock()
       msg = yield from client.send_message(c, 'PONG')
       t2 = time.clock()
-      y = t2-t1
-      yield from client.edit_message(msg, 'PONG `' +  y[2: 4] + 'ms`')
+      y = str(t2-t1)
+      yield from client.edit_message(msg, 'PONG `' +  y[2: 5] + 'ms`')
 
 
   if message.content.upper() == '$RESTART':
     if UID in adlist:
-      os.system('start restart.py')
+      os.system('start /min restart.py')
       sys.exit(0)
 
 
   if message.content.upper() == '$ISADMIN':
     if UID in adlist:
-      yield from client.send_message(c, 'Yes, you are a bot admin.')
+      yield from client.send_message(c, "Yes, you're a bot admin.")
     else:
       if UID in badlist:
         pass
       else:
         yield from client.send_message(c, 'No, you do not have access to all bot commands. If you think this is a mistake please contact <@190313064367652864>')
 
-  if message.content.startswith('$BLIST'):
+  if message.content.upper().startswith('$BLIST'):
     if UID in adlist:
       mes = mes.split(' ')
-      if len(mes) > 0:
+      if len(mes) == 1:
         yield from client.send_message(auth, badlist)
       else:
         if mes[1].upper() == 'ADD':
           badlist.append(mes[2])
-        elif mes[1].upper() == 'REM':
+          txt = open('badlist.txt', 'a')
+          txt.write(str(mes[2]) + ', ')
+          txt.close()
+          yield from client.send_message(c, 'Added <@' + mes[2] + '> to the blacklist.')
+        if mes[1].upper() == 'REM':
           badlist.remove(mes[2])
+          delthis = [str(mes[2]) + ', ']
+          lst = []
+          txt = open('badlist.txt', 'r')
+          for line in txt:
+            for word in delthis:
+              if word in line:
+                line = line.replace(word, '')
+            lst.append(line)
+          txt.close()
+          txt = open('badlist.txt', 'w')
+          for line in lst:
+            txt.write(line)
+          txt.close()
+          yield from client.send_message(c, 'Removed <@' + mes[2] + '> from the blacklist.')
 
   if message.content.upper() == '$INFO':
     if UID in badlist:
@@ -85,4 +105,4 @@ def on_message(message):
       yield from client.send_message(c, 'HordesBot version 0.1')
       
 #Replace TOKEN with the actual token.
-client.run(TOKEN)
+client.run(token)
