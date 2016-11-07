@@ -52,7 +52,6 @@ def on_message(message):
 <<<<<<< HEAD
       yield from client.send_message(c, '`Yes, you are a bot admin.`')
 =======
-      yield from client.send_message(c, "Yes, you're a bot admin.")
 >>>>>>> ffeeee1a51d633b6473dcc18d9ba3ffa49c1f209
     else:
       if UID in badlist:
