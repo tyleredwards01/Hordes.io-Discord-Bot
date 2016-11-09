@@ -104,8 +104,13 @@ def on_message(message):
     if UID in adlist:
 #<<<<<<< HEAD
       yield from client.send_message(c, '`Yes, you are a bot admin.`')
+<<<<<<< HEAD
 #=======
 #>>>>>>> ffeeee1a51d633b6473dcc18d9ba3ffa49c1f209
+=======
+=======
+>>>>>>> ffeeee1a51d633b6473dcc18d9ba3ffa49c1f209
+>>>>>>> b65a7c0fb824b43c8f85349ba1eb1d719a07e958
     else:
       if UID in badlist:
         pass
