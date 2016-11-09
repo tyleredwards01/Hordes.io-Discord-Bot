@@ -19,12 +19,65 @@ badlist = txt.read().split(', ')
 
 @client.event
 @asyncio.coroutine
+def serverActivity(msgTime):
+  if msgTime == 0:
+    clock0 = clock0 + 1
+  elif msgTime == 1:
+    clock1 = clock1 + 1
+  elif msgTime == 2:
+    clock2 = clock2 +1
+  elif msgTime == 3:
+    clock3 = clock3 + 1
+  elif msgTime == 4:
+    clock4 = clock4 + 1
+  elif msgTime == 5:
+    clock5 = clock5 + 1
+  elif msgTime == 6:
+    clock6 = clock6 + 1
+  elif msgTime == 7:
+    clock7 = clock7 + 1
+  elif msgTime == 8:
+    clock8 = clock8 + 1
+  elif msgTime == 9:
+    clock9 = clock9 + 1
+  elif msgTime == 10:
+    clock10 = clock10 + 1
+  elif msgTime == 11:
+    clock11 = clock11 + 1
+  elif msgTime == 12:
+    clock12 = clock12 + 1
+  elif msgTime == 13:
+    clock13 = clock13 + 1
+  elif msgTime == 14:
+    clock14 = clock14 + 1
+  elif msgTime == 15:
+    clock15 = clock15 + 1
+  elif msgTime == 16:
+    clock16 = clock16 + 1
+  elif msgTime == 17:
+    clock17 = clock17 + 1
+  elif msgTime == 18:
+    clock18 = clock18 + 1
+  elif msgTime == 19:
+    clock19 = clock19 + 1
+  elif msgTime == 20:
+    clock20 = clock20 + 1
+  elif msgTime == 21:
+    clock21 = clock21 + 1
+  elif msgTime == 22:
+    clock22 = clock22 + 1
+  elif msgTime == 23:
+    clock23 = clock23 + 1
+    
 def on_message(message):
   UID = message.author.id
   auth = message.author
   mes = message.content
   c = message.channel
   #Ping command, I plan on replacing this using discord timestamps eventually.
+  msgTime = time.strftime("%H")
+  serverActivity(msgTime)
+
   if message.content.upper() == '$PING':
     if UID in badlist:
         pass
@@ -32,13 +85,13 @@ def on_message(message):
       t1 = time.clock()
       msg = yield from client.send_message(c, '`PONG`')
       t2 = time.clock()
-<<<<<<< HEAD
-      y = t2-t1
+#<<<<<<< HEAD
+      y = str(t2-t1)
       yield from client.edit_message(msg, '`PONG`' +  y[2: 4] + 'ms`')
-=======
+#=======
       y = str(t2-t1)
       yield from client.edit_message(msg, 'PONG `' +  y[2: 5] + 'ms`')
->>>>>>> ffeeee1a51d633b6473dcc18d9ba3ffa49c1f209
+#>>>>>>> ffeeee1a51d633b6473dcc18d9ba3ffa49c1f209
 
 
   if message.content.upper() == '$RESTART':
@@ -49,11 +102,10 @@ def on_message(message):
 
   if message.content.upper() == '$ISADMIN':
     if UID in adlist:
-<<<<<<< HEAD
+#<<<<<<< HEAD
       yield from client.send_message(c, '`Yes, you are a bot admin.`')
-=======
-      yield from client.send_message(c, "Yes, you're a bot admin.")
->>>>>>> ffeeee1a51d633b6473dcc18d9ba3ffa49c1f209
+#=======
+#>>>>>>> ffeeee1a51d633b6473dcc18d9ba3ffa49c1f209
     else:
       if UID in badlist:
         pass
@@ -125,4 +177,4 @@ def on_message(message):
         if annoyed > 10:
           annoying = True
 #Replace TOKEN with the actual token.
-client.run(token)
+client.run('MjQzMTIwMTM3MDEwNDEzNTY4.CwIghQ.zZb1swqmPslGo66QFn3-D0opXBM')
