@@ -85,13 +85,10 @@ def on_message(message):
       t1 = time.clock()
       msg = yield from client.send_message(c, '`PONG`')
       t2 = time.clock()
-#<<<<<<< HEAD
       y = str(t2-t1)
       yield from client.edit_message(msg, '`PONG`' +  y[2: 4] + 'ms`')
-#=======
       y = str(t2-t1)
       yield from client.edit_message(msg, 'PONG `' +  y[2: 5] + 'ms`')
-#>>>>>>> ffeeee1a51d633b6473dcc18d9ba3ffa49c1f209
 
 
   if message.content.upper() == '$RESTART':
@@ -102,15 +99,7 @@ def on_message(message):
 
   if message.content.upper() == '$ISADMIN':
     if UID in adlist:
-#<<<<<<< HEAD
       yield from client.send_message(c, '`Yes, you are a bot admin.`')
-<<<<<<< HEAD
-#=======
-#>>>>>>> ffeeee1a51d633b6473dcc18d9ba3ffa49c1f209
-=======
-=======
->>>>>>> ffeeee1a51d633b6473dcc18d9ba3ffa49c1f209
->>>>>>> b65a7c0fb824b43c8f85349ba1eb1d719a07e958
     else:
       if UID in badlist:
         pass
@@ -182,4 +171,4 @@ def on_message(message):
         if annoyed > 10:
           annoying = True
 #Replace TOKEN with the actual token.
-client.run('MjQzMTIwMTM3MDEwNDEzNTY4.CwIghQ.zZb1swqmPslGo66QFn3-D0opXBM')
+client.run(token)
