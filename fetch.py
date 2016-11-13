@@ -19,4 +19,6 @@ try:
     data = s.recv(2048).decode()
 except as err:
     print('An error has occured\n' + err)
+
+#Close Connection
 s.close()
