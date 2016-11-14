@@ -7,18 +7,21 @@ port = 80
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((host,port))
 
-#Send Message
-message = 'PLACEHOlDER'
-try:
-    s.send(message.encode())
-except as err:
-    print('An error has occured\n' + err)
+while True:
+    #Send Message
+    message = 'PLACEHOlDER'
+    try:
+        s.send(message.encode())
+    except as err/:
+        print('An error has occured\n' + err)
 
-#Receive data
-try:
-    data = s.recv(2048).decode()
-except as err:
-    print('An error has occured\n' + err)
+    #Receive data
+    try:
+        data = s.recv(2048).decode()
+    except as err:
+        print('An error has occured\n' + err)
 
-#Close Connection
-s.close()
+    #Close Connection
+    s.close()
+    time.sleep(5)
+
