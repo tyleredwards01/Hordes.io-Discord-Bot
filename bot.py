@@ -68,6 +68,14 @@ def serverActivity(msgTime):
     clock22 = clock22 + 1
   elif msgTime == 23:
     clock23 = clock23 + 1
+  clocks = [clock0, clock1, clock2, clock3, clock4, clock5, clock6, clock7, clock8, clock9, clock10, clock11, clock12, clock13, clock14, clock15, clock16, clock17, clock18, clock19, clock19, clock20, clock21, clock22, clock23]
+  activity = open('serveractivity.txt', 'w')
+  clocks_written = 1
+  activity.write(clock0)
+  while clocks_written < 24:
+    activity.append(clocks[clocks_written])
+    clocks_written = clocks_written + 1
+  activity.close()
     
 def on_message(message):
   UID = message.author.id
