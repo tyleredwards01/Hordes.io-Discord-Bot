@@ -215,4 +215,4 @@ def on_message(message):
         if annoyed > 10:
           annoying = True
 #Replace TOKEN with the actual token.
-client.run(token)
+client.run(TOKEN)
