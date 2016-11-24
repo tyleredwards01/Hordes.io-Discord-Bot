@@ -112,7 +112,9 @@ def serverActivity(msgTime):
     activity.append(clocks[clocks_written])
     clocks_written = clocks_written + 1
   activity.close()
-    
+  
+@client.event
+@asyncio.coroutine
 def on_message(message):
   UID = message.author.id
   auth = message.author
