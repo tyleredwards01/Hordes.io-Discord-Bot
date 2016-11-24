@@ -55,7 +55,8 @@ clock23 = clock_list[23]
 
 @client.event
 @asyncio.coroutine
-def serverActivity(msgTime):
+def on_message():
+  msgTime = time.strftime("%H")
   if msgTime == 0:
     clock0 = clock0 + 1
   elif msgTime == 1:
@@ -121,8 +122,6 @@ def on_message(message):
   mes = message.content
   c = message.channel
   #Ping command, I plan on replacing this using discord timestamps eventually.
-  msgTime = time.strftime("%H")
-  serverActivity(msgTime)
 
   if message.content.upper() == '$PING':
     if UID in badlist:
