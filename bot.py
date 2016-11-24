@@ -1,4 +1,4 @@
-import discord, asyncio, os, sys, time, json
+import discord, asyncio, os, sys, time, json, requests
 client = discord.Client()
 
 #Executes when bot starts up.
@@ -27,31 +27,6 @@ for i, line in activity_enu:
         if i == clocks_read:
             clock_list.append(line)
 activity.close()
-
-clock0 = clock_list[0]
-clock1 = clock_list[1]
-clock2 = clock_list[2]
-clock3 = clock_list[3]
-clock4 = clock_list[4]
-clock5 = clock_list[5]
-clock6 = clock_list[6]
-clock7 = clock_list[7]
-clock8 = clock_list[8]
-clock9 = clock_list[9]
-clock10 = clock_list[10]
-clock11 = clock_list[11]
-clock12 = clock_list[12]
-clock13 = clock_list[13]
-clock14 = clock_list[14]
-clock15 = clock_list[15]
-clock16 = clock_list[16]
-clock17 = clock_list[17]
-clock18 = clock_list[18]
-clock19 = clock_list[19]
-clock20 = clock_list[20]
-clock21 = clock_list[21]
-clock22 = clock_list[22]
-clock23 = clock_list[23]
 
 @client.event
 @asyncio.coroutine
@@ -196,7 +171,11 @@ def on_message(message):
     if UID in badlist:
       pass
     else:
-      yield from client.send_message(c, '`Sorry, but this command has not yet been fully implemented.`')
+      yield from client.send_message(c, '`Fetching Leaderboard!`')
+      url = 'http://date.jsontest.com/' #for testing, Outputs Date and time.
+      r = requests.get(url)
+      data = r.json()
+      yield from client.send_message(c, data)
 
   if message.content.upper() == '$VERSION':
     if UID in badlist:
@@ -216,4 +195,4 @@ def on_message(message):
         if annoyed > 10:
           annoying = True
 #Replace TOKEN with the actual token.
-client.run(TOKEN)
+client.run('TOKEN')
