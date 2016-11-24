@@ -18,7 +18,7 @@ txt = open('badlist.txt', 'r')
 badlist = txt.read().split(', ')
 #Server hourly activity total reading.
 activity = open('serveractivity.txt', 'r')
-acitivty_enu = enumerate(activity)
+activity_enu = enumerate(activity)
 clock_list = []
 for i, line in activity_enu:
     clocks_read = 0
