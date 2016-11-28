@@ -165,7 +165,7 @@ def on_message(message):
     if UID in badlist:
       pass
     else:
-      yield from client.send_message(c, '`HORDESBOT HELP: \nEveryone:\n$INFO - Gives info about HordesBot. \n$ISADMIN - Tells you if you have admin privelages.\n$PING - Returns with "PONG". Used to ensure HordesBot is running.\n$PLAYERS - Displays players currently online on Hordes.io.\nADMIN PRIVELAGES:\n$RESTART - Restarts the bot.\n$STOP - Stops HordesBot`')
+      yield from client.send_message(c, '`HORDESBOT HELP: \nEveryone:\n$INFO - Gives info about HordesBot. \n$ISADMIN - Tells you if you have admin privelages.\n$PING - Returns with "PONG". Used to ensure HordesBot is running.\n$VERSION - Gives current HordesBot version.\n$PLAYERS - Displays players currently online on Hordes.io.\nADMIN PRIVELAGES:\n$BLIST ADD/REM - Add/remove people from bot blacklist.\n$RESTART - Restarts the bot.\n$STOP - Stops HordesBot`')
 
   if message.content.upper() == '$PLAYERS':
     if UID in badlist:
