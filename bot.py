@@ -167,16 +167,15 @@ def on_message(message):
     else:
       yield from client.send_message(c, '`HORDESBOT HELP: \nEveryone:\n$INFO - Gives info about HordesBot. \n$ISADMIN - Tells you if you have admin privelages.\n$PING - Returns with "PONG". Used to ensure HordesBot is running.\nADMIN PRIVELAGES:\n$RESTART - Restarts the bot.\n$STOP - Stops HordesBot`')
 
-  if message.content.upper() == '$PLAYERS':
+  if message.content.upper() == '$LEADERBOARD':
     if UID in badlist:
       pass
     else:
-      r = requests.get('http://www.hordes.io:9999/api/status')
+      yield from client.send_message(c, '`Fetching Leaderboard!`')
+      url = 'http://date.jsontest.com/' #for testing, Outputs Date and time.
+      r = requests.get(url)
       data = r.json()
-      pyData = json.dumps(data)
-      dataStr = json.loads(pyData)
-      players = (dataStr['players'])
-      yield from client.send_message(c, "`players:`" + str(players))
+      yield from client.send_message(c, data)
 
   if message.content.upper() == '$VERSION':
     if UID in badlist:
