@@ -2,24 +2,27 @@ import discord, asyncio, os, sys, time, json, requests
 client = discord.Client()
 
 #Message to new members
-memberJoin = '''```
-				Hello and welcome to the Hordes.io Discord Server!
-				First and foremost, we would like to thank you for joining!
-				In this server we have some general community rules that we believe aren't too demanding.
-				1) Don't insult others, in any way, shape or form.
-				2) Please keep chat to it's respected channel.
-				3) If you wish to play music in the music channel, please refrain from playing music with the intent of annoying others.
-				4) Please use bot commands in off-topic only.
-				5) Do not post links to any malicious sites, or any shortened links, i.e. goo.gl or bit.ly
-				6) Spamming in ANY channel is not allowed.
-				7) NSFW content is prohibited in voice chat or text chat, as we do have children among us.
-				8) Please do not advertise. We realize that your YouTube or Twitch may be really great, but it is not allowed here.
-				If you fail to follow these rules, a staff member may either give you a warning, or if it is severe enough, can ban you. After being warned, any other rules broken will result in a permanent ban.
-				If you have any questions, please check out the information channel's FAQ section, or private message one of the staff for assistance.
+memberJoin = '''
+Hello and welcome to the Hordes.io Discord Server!
+First and foremost, we would like to thank you for joining!
+
+In this server we have some general community rules that we believe aren't too demanding:
+**1)** Don't insult others, in any way, shape or form.
+**2)** Please keep chat to it's respected channel.
+**3)** If you wish to play music in the music channel, please refrain from playing music with the intent of annoying others.
+**4)** Please use bot commands in off-topic only.
+**5)** Do not post links to any malicious sites, or any shortened links, i.e. goo.gl or bit.ly
+**6)** Spamming in ANY channel is not allowed.
+**7)** NSFW content is prohibited in voice chat or text chat, as we do have children among us.
+**8)** Please do not advertise. We realize that your YouTube or Twitch may be really great, but it is not allowed here.
+If you fail to follow these rules, a staff member may either give you a warning, or if it is severe enough, can ban you. After being warned, any other rules broken will result in a permanent ban.
+
+If you have any questions, please check out the information channel's FAQ section, or private message one of the staff for assistance.
 				
-				Sincerely, 
-					 The Hordes.io Team
-				```'''
+Sincerely, 
+		The Hordes.io Team
+'''
+
 #Executes when bot starts up.
 @client.event
 @asyncio.coroutine
