@@ -49,6 +49,8 @@ for i, line in activity_enu:
             clock_list.append(line)
 activity.close()
 
+warned = []
+
 @client.event
 @asyncio.coroutine
 def on_message():
@@ -132,6 +134,7 @@ def on_message(message):
   	else:
   		yield from client.send_message(auth, "Your message was detected to contain a shortened link. This is your warning. Do not post another shortened link, as they are not allowed.")
   		warned.append(auth)
+  		
   if message.content.upper() == '$PING':
     if UID in badlist:
         pass
