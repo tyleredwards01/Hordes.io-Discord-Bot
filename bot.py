@@ -11,7 +11,7 @@ def on_ready():
   print('User ID: ' + client.user.id)
 
 #Adminlist (Use the USER IDS)
-adlist = ['190313064367652864', '227376221351182337', '104680633518821376', '117993898537779207']
+adlist = ['190313064367652864', '227376221351182337', '104680633518821376', '117993898537779207', '126288853576318976']
 #List of users who cannot use the bot (Use the USER IDS)
 badlist = []
 txt = open('badlist.txt', 'r')
@@ -165,17 +165,18 @@ def on_message(message):
     if UID in badlist:
       pass
     else:
-      yield from client.send_message(c, '`HORDESBOT HELP: \nEveryone:\n$INFO - Gives info about HordesBot. \n$ISADMIN - Tells you if you have admin privelages.\n$PING - Returns with "PONG". Used to ensure HordesBot is running.\nADMIN PRIVELAGES:\n$RESTART - Restarts the bot.\n$STOP - Stops HordesBot`')
+      yield from client.send_message(c, '`HORDESBOT HELP: \nEveryone:\n$INFO - Gives info about HordesBot. \n$ISADMIN - Tells you if you have admin privelages.\n$PING - Returns with "PONG". Used to ensure HordesBot is running.\n$PLAYERS - Displays players currently online on Hordes.io.\nADMIN PRIVELAGES:\n$RESTART - Restarts the bot.\n$STOP - Stops HordesBot`')
 
-  if message.content.upper() == '$LEADERBOARD':
+  if message.content.upper() == '$PLAYERS':
     if UID in badlist:
       pass
     else:
-      yield from client.send_message(c, '`Fetching Leaderboard!`')
-      url = 'http://date.jsontest.com/' #for testing, Outputs Date and time.
-      r = requests.get(url)
+      r = requests.get('http://www.hordes.io:9999/api/status')
       data = r.json()
-      yield from client.send_message(c, data)
+      pyData = json.dumps(data)
+      dataStr = json.loads(pyData)
+      players = (dataStr['players'])
+      yield from client.send_message(c, "`players:`" + str(players))
 
   if message.content.upper() == '$VERSION':
     if UID in badlist:
