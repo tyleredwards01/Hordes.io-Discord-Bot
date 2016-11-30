@@ -124,7 +124,7 @@ def on_message(message):
   auth = message.author
   mes = message.content
   c = message.channel
-  mesID = message.ID
+  mesID = message.id
   #Ping command, I plan on replacing this using discord timestamps eventually.
   
   if 'goo.gl/' in mes or 'bit.ly/' in mes:
