@@ -124,16 +124,20 @@ def on_message(message):
   auth = message.author
   mes = message.content
   c = message.channel
+  mesID = message.ID
   #Ping command, I plan on replacing this using discord timestamps eventually.
   
   if 'goo.gl/' in mes or 'bit.ly/' in mes:
-  	yield from client.delete_message(mes)
-  	if auth in warned:
-  		yield from client.send_message(auth, "You have been banned due to posting a second shortened link.")
-  		client.ban(auth, delete_message_days=1)
+  	if UID in adlist:
+  		pass
   	else:
-  		yield from client.send_message(auth, "Your message was detected to contain a shortened link. This is your warning. Do not post another shortened link, as they are not allowed.")
-  		warned.append(auth)
+  		yield from client.delete_message(mesID)
+  		if auth in warned:
+  			yield from client.send_message(auth, "You have been banned due to posting a second shortened link.")
+  			client.ban(auth, delete_message_days=1)
+  		else:
+  			yield from client.send_message(auth, "Your message was detected to contain a shortened link. This is your warning. Do not post another shortened link, as they are not allowed.")
+  			warned.append(auth)
   		
   if message.content.upper() == '$PING':
     if UID in badlist:
