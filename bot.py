@@ -1,5 +1,11 @@
-import discord, asyncio, os, sys, time, json, requests
+import discord, asyncio, os, sys, time, json, requests, argparse
 client = discord.Client()
+
+#Cmdline parser.
+parser = argparse.ArgumentParser(description='Hordes.io Official Bot')
+parser.add_argument('-t', action='store', dest='token',
+                    help='Discord token for the bot')
+args = parser.parse_args()
 
 #Message to new members
 memberJoin = '''
@@ -124,17 +130,15 @@ def on_message(message):
   auth = message.author
   mes = message.content
   c = message.channel
-  #Ping command, I plan on replacing this using discord timestamps eventually.
-  
-  if 'goo.gl/' in mes or 'bit.ly/' in mes:
+ 
+  if 'goo.gl' in mes or 'bit.ly' in mes:
   	if UID in adlist:
   		pass
   	else:
   		yield from client.delete_message(message)
   		if auth in warned:
-  			yield from client.send_message(auth, "You have been banned due to posting a second shortened link.")
-  			time.sleep(1)
-  			client.ban(auth, delete_message_days=1)
+  			yield from client.send_message(auth, "You have been banned due to posting a second shortened links.")
+  			yield from client.ban(auth, delete_message_days=1)
   		else:
   			yield from client.send_message(auth, "Your message was detected to contain a shortened link. This is your warning. Do not post another shortened link, as they are not allowed.")
   			warned.append(auth)
@@ -236,5 +240,6 @@ def on_message(message):
         annoyed = annoyed+1
         if annoyed > 10:
           annoying = True
+
 #Replace TOKEN with the actual token.
-client.run('MjQzMTIwMTM3MDEwNDEzNTY4.CyEpzg.UW7KAr08OL9QkdF0xH6YCrdp_l0')
+client.run(args.token)
