@@ -200,7 +200,7 @@ def on_message(message):
     if UID in badlist:
       pass
     else:
-      yield from client.send_message(c, '`HordesBot was created by BlazingFire007 and LegusX. Currernt version: 0.0.1`')
+      yield from client.send_message(c, '`HordesBot was created by BlazingFire007, Korvnisse and LegusX. Currerent version: 0.0.1`')
 
   if message.content.upper() == '$HELP':
     if UID in badlist:
@@ -237,4 +237,4 @@ def on_message(message):
         if annoyed > 10:
           annoying = True
 #Replace TOKEN with the actual token.
-client.run('TOKEN')
+client.run('MjQzMTIwMTM3MDEwNDEzNTY4.CyEpzg.UW7KAr08OL9QkdF0xH6YCrdp_l0')
