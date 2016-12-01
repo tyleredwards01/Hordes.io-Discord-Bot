@@ -1,10 +1,12 @@
-import discord, asyncio, os, sys, time, json, requests, argparse
+import discord, asyncio, os, sys, time, json, requests, argparse, collections
 client = discord.Client()
 
 #Cmdline parser.
 parser = argparse.ArgumentParser(description='Hordes.io Official Bot')
 parser.add_argument('-t', action='store', dest='token',
                     help='Discord token for the bot')
+parser.add_argument('-s', action='store', dest='Serv',
+                    help='Discord server for the bot to join')
 args = parser.parse_args()
 
 #Message to new members
@@ -222,6 +224,24 @@ def on_message(message):
       dataStr = json.loads(pyData)
       players = (dataStr['players'])
       yield from client.send_message(c, "`players:`" + str(players))
+
+  if message.content.upper() == '$LEADERBOARD':
+    if UID in badlist:
+      pass
+    else:
+      r = requests.get('http://www.hordes.io:9999/api/ladder')
+      data = r.json()
+      pyData = json.dumps(data)
+      dataStr = json.loads(pyData)
+      sort = collections.OrderedDict(sorted(dataStr.items()))
+      for k, v in sort.items():
+        pClass = v['class']
+        pName = v['name']
+        pLevel = v['level']
+        pFame = v['fame']
+        pFact = v['faction']
+        pRank = k  
+        #Message to be sent: yield from client.send_message(c, str(pRank) + ". "  + str(pName) + " lvl:" + str(pLevel) + " fame:" + str(pFame) + " " + str(pClass) + " faction:" + str(pFact))
 
   if message.content.upper() == '$VERSION':
     if UID in badlist:
