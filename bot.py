@@ -5,8 +5,6 @@ client = discord.Client()
 parser = argparse.ArgumentParser(description='Hordes.io Official Bot')
 parser.add_argument('-t', action='store', dest='token',
                     help='Discord token for the bot')
-parser.add_argument('-s', action='store', dest='Serv',
-                    help='Discord server for the bot to join')
 args = parser.parse_args()
 
 #Message to new members
@@ -230,6 +228,7 @@ def on_message(message):
       pass
     else:
       r = requests.get('http://www.hordes.io:9999/api/ladder')
+      leaderboard = ''
       data = r.json()
       pyData = json.dumps(data)
       dataStr = json.loads(pyData)
@@ -240,8 +239,18 @@ def on_message(message):
         pLevel = v['level']
         pFame = v['fame']
         pFact = v['faction']
-        pRank = k  
-        #Message to be sent: yield from client.send_message(c, str(pRank) + ". "  + str(pName) + " lvl:" + str(pLevel) + " fame:" + str(pFame) + " " + str(pClass) + " faction:" + str(pFact))
+        pRank = k
+        #if pFact == '0':
+          #pFact = ':Vanguard:'
+        #else:
+          #pFact = ':Bloodlust:'
+        leaderboard = leaderboard + str(pRank) + '. '  + str(pName) + ' lvl:' + str(pLevel) + ' fame:' + str(pFame) + ' ' + str(pClass) + ' faction: ' + str(pFact) + '\n'
+        print(leaderboard)
+        if k == '9':
+          client.get_all_emojis()
+          yield from client.send_message(c, '`' + leaderboard + '`')
+          print(discord.emoji)
+        
 
   if message.content.upper() == '$VERSION':
     if UID in badlist:
