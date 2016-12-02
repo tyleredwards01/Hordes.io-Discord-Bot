@@ -121,7 +121,8 @@ def on_message():
 @client.event
 @asyncio.coroutine
 def on_member_join(member):
-	yield from client.send_message(member, memberJoin)
+	time.sleep(1)
+	yield from client.send_message(member, 'Hello and welcome to the Hordes.io Discord Server!\nFirst and foremost, we would like to thank you for joining!\nIn this server we have some general community rules that we believe aren\'t too demanding:\n**1) Don\'t insult others, in any way, shape or form.**\n**2) Please keep chat to it\'s respected channel.**\n**3) If you wish to play music in the music channel, please refrain from playing music with the intent of annoying others.**\n**4) Please use bot commands in off-topic only.**\n**5) Do not post links to any malicious sites, or any shortened links, i.e. goo.gl or bit.ly**\n**6) Spamming in ANY channel is not allowed.**\n**7) NSFW content is prohibited in voice chat or text chat, as we do have children among us.**\n**8) Please do not advertise. We realize that your YouTube or Twitch may be really great, but it is not allowed here.**\n\nIf you fail to follow these rules, a staff member may either give you a warning, or if it is severe enough, can ban you. After being warned, any other rules broken will result in a permanent ban.\n\nIf you have any questions, please check out the information channel\'s FAQ section, or private message one of the staff for assistance.\n\nSincerely, \n\n    The Hordes.io Team')
 	
 @client.event
 @asyncio.coroutine
@@ -154,6 +155,8 @@ def on_message(message):
       yield from client.edit_message(msg, '`PONG`' +  y[2: 4] + 'ms`')
       y = str(t2-t1)
       yield from client.edit_message(msg, 'PONG `' +  y[2: 5] + 'ms`')
+      time.sleep(30)
+      yield from client.delete_message(msg)
 
 
   if message.content.upper() == '$RESTART':
@@ -164,12 +167,16 @@ def on_message(message):
 
   if message.content.upper() == '$ISADMIN':
     if UID in adlist:
-      yield from client.send_message(c, '`Yes, you are a bot admin.`')
+      msg = yield from client.send_message(c, '`Yes, you are a bot admin.`')
+      time.sleep(30)
+      yield from client.delete_message(msg)
     else:
       if UID in badlist:
         pass
       else:
-        yield from client.send_message(c, '`No, you do not have access to all bot commands. If you think this is a mistake please contact <@190313064367652864>`')
+        msg = yield from client.send_message(c, '`No, you do not have access to all bot commands. If you think this is a mistake please contact <@190313064367652864>`')
+        time.sleep(30)
+        yield from client.delete_message(msg)
 
   if message.content.upper().startswith('$BLIST'):
     if UID in adlist:
@@ -182,7 +189,9 @@ def on_message(message):
           txt = open('badlist.txt', 'a')
           txt.write(str(mes[2]) + ', ')
           txt.close()
-          yield from client.send_message(c, 'Added <@' + mes[2] + '> to the blacklist.')
+          msg = yield from client.send_message(c, 'Added <@' + mes[2] + '> to the blacklist.')
+          time.sleep(30)
+          yield from client.delete_message(msg)
         if mes[1].upper() == 'REM':
           badlist.remove(mes[2])
           delthis = [str(mes[2]) + ', ']
@@ -198,19 +207,25 @@ def on_message(message):
           for line in lst:
             txt.write(line)
           txt.close()
-          yield from client.send_message(c, 'Removed <@' + mes[2] + '> from the blacklist.')
+          msg = yield from client.send_message(c, 'Removed <@' + mes[2] + '> from the blacklist.')
+          time.sleep(30)
+          yield from client.delete_message(msg)
 
   if message.content.upper() == '$INFO':
     if UID in badlist:
       pass
     else:
-      yield from client.send_message(c, '`HordesBot was created by BlazingFire007, Korvnisse and LegusX. Currerent version: 0.0.1`')
+      msg = yield from client.send_message(c, '`HordesBot was created by BlazingFire007, Korvnisse and LegusX. Currerent version: 0.0.1`')
+      time.sleep(30)
+      yield from client.delete_message(msg)
 
   if message.content.upper() == '$HELP':
     if UID in badlist:
       pass
     else:
-      yield from client.send_message(c, '`HORDESBOT HELP: \nEveryone:\n$INFO - Gives info about HordesBot. \n$ISADMIN - Tells you if you have admin privelages.\n$PING - Returns with "PONG". Used to ensure HordesBot is running.\n$VERSION - Gives current HordesBot version.\n$PLAYERS - Displays players currently online on Hordes.io.\nADMIN PRIVELAGES:\n$BLIST ADD/REM - Add/remove people from bot blacklist.\n$RESTART - Restarts the bot.\n$STOP - Stops HordesBot`')
+      msg = yield from client.send_message(c, '```HORDESBOT HELP: \nEveryone:\n$INFO - Gives info about HordesBot. \n$ISADMIN - Tells you if you have admin privelages.\n$PING - Returns with "PONG". Used to ensure HordesBot is running.\n$VERSION - Gives current HordesBot version.\n$PLAYERS - Displays players currently online on Hordes.io.\nADMIN PRIVELAGES:\n$BLIST ADD/REM - Add/remove people from bot blacklist.\n$RESTART - Restarts the bot.\n$STOP - Stops HordesBot```')
+      time.sleep(30)
+      yield from client.delete_message(msg)
 
   if message.content.upper() == '$PLAYERS':
     if UID in badlist:
@@ -221,7 +236,9 @@ def on_message(message):
       pyData = json.dumps(data)
       dataStr = json.loads(pyData)
       players = (dataStr['players'])
-      yield from client.send_message(c, "`players:`" + str(players))
+      msg = yield from client.send_message(c, "`players:`" + str(players))
+      time.sleep(30)
+      yield from client.delete_message(msg)
 
   if message.content.upper() == '$LEADERBOARD':
     if UID in badlist:
@@ -245,30 +262,21 @@ def on_message(message):
         #else:
           #pFact = ':Bloodlust:'
         leaderboard = leaderboard + str(pRank) + '. '  + str(pName) + ' lvl:' + str(pLevel) + ' fame:' + str(pFame) + ' ' + str(pClass) + ' faction: ' + str(pFact) + '\n'
-        print(leaderboard)
+        msg = ''
         if k == '9':
           client.get_all_emojis()
-          yield from client.send_message(c, '`' + leaderboard + '`')
-          print(discord.emoji)
-        
+          msg = yield from client.send_message(c, '```'+leaderboard+'```')
+          time.sleep(30)
+          yield from client.delete_message(msg)
+          print("message deleted")
 
   if message.content.upper() == '$VERSION':
     if UID in badlist:
       pass
     else:
-      yield from client.send_message(c, '`HordesBot version 0.1`')
-
-  if message.content.startswith('$ANNOY_'):
-    if UID in badlist:
-      pass
-    else:
-      annoying = False
-      annoyed = 0
-      while annoying == False:
-        yield from client.send_message(auth, message.content.strip('$ANNOY_')+'!!')
-        annoyed = annoyed+1
-        if annoyed > 10:
-          annoying = True
+      msg = yield from client.send_message(c, '`HordesBot version 0.1`')
+      time.sleep(30)
+      yield from client.delete_message(msg)
 
 #Replace TOKEN with the actual token.
 client.run(args.token)
