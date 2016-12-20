@@ -43,6 +43,8 @@ adlist = ['190313064367652864', '227376221351182337', '104680633518821376', '117
 badlist = []
 txt = open('badlist.txt', 'r')
 badlist = txt.read().split(', ')
+#People in command cooldown
+cd = []
 #Server hourly activity total reading.
 activity = open('serveractivity.txt', 'r')
 activity_enu = enumerate(activity)
@@ -121,7 +123,7 @@ def on_message():
 @client.event
 @asyncio.coroutine
 def on_member_join(member):
-	time.sleep(1)
+	yield from asyncio.sleep(1)
 	yield from client.send_message(member, 'Hello and welcome to the Hordes.io Discord Server!\nFirst and foremost, we would like to thank you for joining!\nIn this server we have some general community rules that we believe aren\'t too demanding:\n**1) Don\'t insult others, in any way, shape or form.**\n**2) Please keep chat to it\'s respected channel.**\n**3) If you wish to play music in the music channel, please refrain from playing music with the intent of annoying others.**\n**4) Please use bot commands in off-topic only.**\n**5) Do not post links to any malicious sites, or any shortened links, i.e. goo.gl or bit.ly**\n**6) Spamming in ANY channel is not allowed.**\n**7) NSFW content is prohibited in voice chat or text chat, as we do have children among us.**\n**8) Please do not advertise. We realize that your YouTube or Twitch may be really great, but it is not allowed here.**\n\nIf you fail to follow these rules, a staff member may either give you a warning, or if it is severe enough, can ban you. After being warned, any other rules broken will result in a permanent ban.\n\nIf you have any questions, please check out the information channel\'s FAQ section, or private message one of the staff for assistance.\n\nSincerely, \n\n    The Hordes.io Team')
 	
 @client.event
@@ -155,7 +157,7 @@ def on_message(message):
       yield from client.edit_message(msg, '`PONG`' +  y[2: 4] + 'ms`')
       y = str(t2-t1)
       yield from client.edit_message(msg, 'PONG `' +  y[2: 5] + 'ms`')
-      time.sleep(30)
+      yield from asyncio.sleep(30)
       yield from client.delete_message(msg)
 
 
@@ -168,14 +170,14 @@ def on_message(message):
   if message.content.upper() == '$ISADMIN':
     if UID in adlist:
       msg = yield from client.send_message(c, '`Yes, you are a bot admin.`')
-      time.sleep(30)
+      yield from asyncio.sleep(30)
       yield from client.delete_message(msg)
     else:
       if UID in badlist:
         pass
       else:
         msg = yield from client.send_message(c, '`No, you do not have access to all bot commands. If you think this is a mistake please contact <@190313064367652864>`')
-        time.sleep(30)
+        yield from asyncio.sleep(30)
         yield from client.delete_message(msg)
 
   if message.content.upper().startswith('$BLIST'):
@@ -190,7 +192,7 @@ def on_message(message):
           txt.write(str(mes[2]) + ', ')
           txt.close()
           msg = yield from client.send_message(c, 'Added <@' + mes[2] + '> to the blacklist.')
-          time.sleep(30)
+          yield from asyncio.sleep(30)
           yield from client.delete_message(msg)
         if mes[1].upper() == 'REM':
           badlist.remove(mes[2])
@@ -208,7 +210,7 @@ def on_message(message):
             txt.write(line)
           txt.close()
           msg = yield from client.send_message(c, 'Removed <@' + mes[2] + '> from the blacklist.')
-          time.sleep(30)
+          yield from asyncio.sleep(30)
           yield from client.delete_message(msg)
 
   if message.content.upper() == '$INFO':
@@ -216,7 +218,7 @@ def on_message(message):
       pass
     else:
       msg = yield from client.send_message(c, '`HordesBot was created by BlazingFire007, Korvnisse and LegusX. Currerent version: 0.0.1`')
-      time.sleep(30)
+      yield from asyncio.sleep(30)
       yield from client.delete_message(msg)
 
   if message.content.upper() == '$HELP':
@@ -224,12 +226,14 @@ def on_message(message):
       pass
     else:
       msg = yield from client.send_message(c, '```HORDESBOT HELP: \nEveryone:\n$INFO - Gives info about HordesBot. \n$ISADMIN - Tells you if you have admin privelages.\n$PING - Returns with "PONG". Used to ensure HordesBot is running.\n$VERSION - Gives current HordesBot version.\n$PLAYERS - Displays players currently online on Hordes.io.\nADMIN PRIVELAGES:\n$BLIST ADD/REM - Add/remove people from bot blacklist.\n$RESTART - Restarts the bot.\n$STOP - Stops HordesBot```')
-      time.sleep(30)
+      yield from asyncio.sleep(30)
       yield from client.delete_message(msg)
 
   if message.content.upper() == '$PLAYERS':
     if UID in badlist:
       pass
+    if UID in cd:
+      yield from client.send_message(c, "Slow down ther bud...")
     else:
       r = requests.get('http://www.hordes.io:9999/api/status')
       data = r.json()
@@ -237,12 +241,16 @@ def on_message(message):
       dataStr = json.loads(pyData)
       players = (dataStr['players'])
       msg = yield from client.send_message(c, "`players:`" + str(players))
-      time.sleep(30)
+      cd.append(UID)
+      yield from asyncio.sleep(30)
+      cd.remove(UID)
       yield from client.delete_message(msg)
 
   if message.content.upper() == '$LEADERBOARD':
     if UID in badlist:
       pass
+    if UID in cd:
+      yield from client.send_message(c, "Slow down there bud...")
     else:
       r = requests.get('http://www.hordes.io:9999/api/ladder')
       leaderboard = ''
@@ -266,7 +274,9 @@ def on_message(message):
         if k == '9':
           client.get_all_emojis()
           msg = yield from client.send_message(c, '```'+leaderboard+'```')
-          time.sleep(30)
+          cd.append(UID)
+          yield from asyncio.sleep(30)
+          cd.remove(UID)
           yield from client.delete_message(msg)
           print("message deleted")
 
@@ -275,8 +285,21 @@ def on_message(message):
       pass
     else:
       msg = yield from client.send_message(c, '`HordesBot version 0.1`')
-      time.sleep(30)
+      yield from asyncio.sleep(30)
       yield from client.delete_message(msg)
+  if message.content.upper().startswith("$SETNICK"):
+    if UID in badlist:
+      pass
+    else:
+      mes = mes.split(' ', 1)
+      if len(mes[1]) > 32:
+        yield from client.send_message(c, "<@" + auth.id + "> Nickname must be less than or equal to 32 characters!")
+      else:
+        try:
+          yield from client.change_nickname(auth, mes[1])
+          yield from client.send_message(auth, 'Nickname changed to ' + mes[1])
+        except discord.errors.Forbidden:
+          yield from client.send_message(auth, "Sorry, I can't change the nickname of someone who has more permissions than I do...")
 
 #Replace TOKEN with the actual token.
 client.run(args.token)
