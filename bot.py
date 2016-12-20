@@ -301,5 +301,10 @@ def on_message(message):
         except discord.errors.Forbidden:
           yield from client.send_message(auth, "Sorry, I can't change the nickname of someone who has more permissions than I do...")
 
+  if message.content.upper().startswith("$SETGAME"):
+    if UID in adlist:
+      mes = mes.split(' ', 1)
+      yield from client.change_presence(game=discord.Game(name=mes[1]))
+
 #Replace TOKEN with the actual token.
 client.run(args.token)
